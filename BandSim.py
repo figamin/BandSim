@@ -90,7 +90,8 @@ SONG_VOICE4_LENGTH = ["QuarterNote", "QuarterNote", "QuarterNote", "QuarterNote"
                       "QuarterNote", "QuarterNote", "QuarterNote", "QuarterNote"]
 # random length and pitches
 POSSIBLE_PITCHES = ["E5", "D5", "C5", "B4", "A4", "G4", "F4", "E4", "D4"]
-POSSIBLE_LENGTH = ["WholeNote", "HalfNote", "QuarterNote", "EighthNote", "SixteenthNote"]
+POSSIBLE_LENGTH = ["QuarterNote", "WholeNote", "HalfNote"]
+# , "EighthNote", "SixteenthNote"
 
 
 def noteMoveSpeedCalc():
@@ -240,7 +241,7 @@ def noteMover(NotePitch, NoteType, baseNoteX, baseNoteY, noteStartPos):
                     noteGot = False
             elif NoteType is "G4":
                 if event.key == pygame.K_4:
-                    noteGot = True1
+                    noteGot = True
                 else:
                     noteGot = False
             elif NoteType is "A4":
@@ -252,7 +253,7 @@ def noteMover(NotePitch, NoteType, baseNoteX, baseNoteY, noteStartPos):
                 if event.key == pygame.K_6:
                     noteGot = True
                 else:
-                    noteGot = FalseBB
+                    noteGot = False
             elif NoteType is "C5":
                 if event.key == pygame.K_7:
                     noteGot = True
@@ -347,7 +348,11 @@ def noteSelector(noteLineNum):
     return nextNote
 TotalTime = 0
 # selection of game mode
-gameType = "Main"
+gameType = input("Enter 0 for Main mode or 1 for Random mode.")
+if gameType is "0":
+    gameType = "Main"
+elif gameType is "1":
+    gameType = "Random"
 # bpm = int(input("Enter your BPM that you want the song to play"))
 bpm = 60
 noteGot = None
@@ -410,13 +415,13 @@ elif gameType is "Random":
     NotesLeftText = gameFont.render("Notes Done - ", 0, BLACK)
     MeasuresLeftText = gameFont.render("Measures Done - ", 0, BLACK)
     rightNowNote1 = random.choice(POSSIBLE_PITCHES)
-    rightNowLength1 = "QuarterNote"
+    rightNowLength1 = random.choice(POSSIBLE_LENGTH)
     rightNowNote2 = random.choice(POSSIBLE_PITCHES)
-    rightNowLength2 = "QuarterNote"
+    rightNowLength2 = random.choice(POSSIBLE_LENGTH)
     rightNowNote3 = random.choice(POSSIBLE_PITCHES)
-    rightNowLength3 = "QuarterNote"
+    rightNowLength3 = random.choice(POSSIBLE_LENGTH)
     rightNowNote4 = random.choice(POSSIBLE_PITCHES)
-    rightNowLength4 = "QuarterNote"
+    rightNowLength4 = random.choice(POSSIBLE_LENGTH)
 notePos1Num = 0
 notePos2Num = 0
 notePos3Num = 0
@@ -444,12 +449,12 @@ while not done:
     # generate notes left text based on actual number
     NotesLeftNum = gameFont.render(NotesLeftStr, 0, BLACK)
     MeasuresLeftNum = gameFont.render(MeasuresLeftStr, 0, BLACK)
-    screen.blit(BPMDisplay, (110, 50))
+    screen.blit(BPMDisplay, (100, 50))
     screen.blit(BPMWords, (165, 50))
     screen.blit(NotesLeftText, (200, 400))
-    screen.blit(NotesLeftNum, (425, 400))
+    screen.blit(NotesLeftNum, (500, 400))
     screen.blit(MeasuresLeftText, (200, 450))
-    screen.blit(MeasuresLeftNum, (500, 450))
+    screen.blit(MeasuresLeftNum, (600, 450))
     screen.blit(TimeSigTopDisplay, (50, 80))
     screen.blit(TimeSigBottomDisplay, (50, 180))
     # bar movement with reset
